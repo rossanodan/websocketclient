@@ -38,6 +38,10 @@ class WebSocketClient {
 
     return false;
   }
+
+  getOpenSubscriptions = (): string[] => {
+    return this.subscriptions;
+  }
 };
 
 export {

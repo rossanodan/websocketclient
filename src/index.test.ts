@@ -45,4 +45,14 @@ describe('WebSocketClient', () => {
 
     expect(subscription).toBe(true);
   });
+
+  test('should not allow to subscribe to the same room twice', async () => {
+    const wsClient = new WebSocketClient("ws://localhost:1234");
+    await wsServer.connected;
+
+    wsClient.subscribe('testing123')
+    wsClient.subscribe('testing123');
+
+    expect(wsClient.getOpenSubscriptions()).toEqual(['testing123']);
+  });
 });
