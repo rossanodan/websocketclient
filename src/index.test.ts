@@ -96,4 +96,9 @@ describe('WebSocketClient', () => {
     await wait(2000);
     expect(wsClient.getConnectionStatus()).toBe('CLOSED');
   });
+
+  test('should emit messages, as they are received, to any subscribers', () => {
+    // not sure what this means
+    // as the backend sends messages to the subscribers; the client receives and send message to the server
+  });
 });
