@@ -52,6 +52,10 @@ class WebSocketClient {
   unsubscribe = (room: string): string[] => {
     this.subscriptions = this.subscriptions.filter(subscription => subscription !== room);
 
+    if (this.subscriptions.length === 0) {
+      this.closeConnection();
+    }
+
     return this.subscriptions;
   }
 };

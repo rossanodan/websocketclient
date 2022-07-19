@@ -83,4 +83,17 @@ describe('WebSocketClient', () => {
 
     expect(wsClient.getOpenSubscriptions()).toEqual(['testing456']);
   });
+
+  test('should close connection to the service if unsubscribe from all the rooms', async () => {
+    const wsClient = new WebSocketClient({
+      url: 'ws://localhost:1234',
+      room: 'testing123'
+    });
+    await wsServer.connected;
+
+    wsClient.unsubscribe('testing123');
+
+    await wait(2000);
+    expect(wsClient.getConnectionStatus()).toBe('CLOSED');
+  });
 });
