@@ -1,10 +1,16 @@
+type Props = {
+  url: string;
+  room: string;
+};
+
 class WebSocketClient {
   wsClient: WebSocket;
   subscriptions: string[];
 
-  constructor (url: string) {
+  constructor ({ url, room }: Props) {
     this.wsClient = new WebSocket(url);
     this.subscriptions = [];
+    this.subscriptions.push(room);
   };
 
   getConnectionStatus = (): string => {
