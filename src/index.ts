@@ -29,17 +29,23 @@ class WebSocketClient {
     this.wsClient.close();
   }
 
-  subscribe = (room: string): boolean => {
+  subscribe = (room: string): string[] => {
     if (!this.subscriptions.includes(room)) {
       this.subscriptions.push(room);
 
-      return true;
+      return this.subscriptions;
     }
 
-    return false;
+    return this.subscriptions;
   }
 
   getOpenSubscriptions = (): string[] => {
+    return this.subscriptions;
+  }
+
+  unsubscribe = (room: string): string[] => {
+    this.subscriptions = this.subscriptions.filter(subscription => subscription !== room);
+
     return this.subscriptions;
   }
 };

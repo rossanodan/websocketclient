@@ -43,16 +43,30 @@ describe('WebSocketClient', () => {
 
     const subscription = wsClient.subscribe('testing123');
 
-    expect(subscription).toBe(true);
+    expect(subscription).toEqual(['testing123']);
   });
 
   test('should not allow to subscribe to the same room twice', async () => {
     const wsClient = new WebSocketClient("ws://localhost:1234");
     await wsServer.connected;
 
-    wsClient.subscribe('testing123')
+    wsClient.subscribe('testing123');
     wsClient.subscribe('testing123');
 
     expect(wsClient.getOpenSubscriptions()).toEqual(['testing123']);
+  });
+
+  test('should allow to unsubscribe from a room', async () => {
+    const wsClient = new WebSocketClient("ws://localhost:1234");
+    await wsServer.connected;
+
+    wsClient.subscribe('testing123');
+    wsClient.subscribe('testing456');
+
+    expect(wsClient.getOpenSubscriptions()).toEqual(['testing123', 'testing456']);
+
+    wsClient.unsubscribe('testing123');
+
+    expect(wsClient.getOpenSubscriptions()).toEqual(['testing456']);
   });
 });
