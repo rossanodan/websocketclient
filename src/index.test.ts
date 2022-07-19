@@ -36,4 +36,13 @@ describe('WebSocketClient', () => {
     await wait(2000);
     expect(wsClient.getConnectionStatus()).toBe('CLOSED');
   });
+
+  test('should allow to subscribe to a room', async () => {
+    const wsClient = new WebSocketClient("ws://localhost:1234");
+    await wsServer.connected;
+
+    const subscription = wsClient.subscribe('testing123');
+
+    expect(subscription).toBe(true);
+  });
 });
