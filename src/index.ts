@@ -22,6 +22,10 @@ class WebSocketClient {
 
     return 'CLOSED';
   }
+
+  closeConnection = (): void => {
+    this.wsClient.close();
+  }
 };
 
 export {
